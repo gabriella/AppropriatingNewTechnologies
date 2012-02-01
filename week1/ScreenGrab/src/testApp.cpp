@@ -72,7 +72,8 @@ void testApp::draw(){
         ofRectangle cur = finder.blobs[i].boundingRect;
 		ofRect(cur);
         //bounding rect is of object ofRect
-     glasses.draw( cur.x-2, cur.y-5, cur.width+4, cur.height);
+        
+        drawGlasses(cur.x, cur.y, cur.width, cur.height);
         
 	}
 	
@@ -120,5 +121,10 @@ void testApp::gotMessage(ofMessage msg){
 
 //--------------------------------------------------------------
 void testApp::dragEvent(ofDragInfo dragInfo){ 
+
+}
+
+void testApp::drawGlasses(float facex, float  facey, float facew, float faceh){
+      glasses.draw( facex-2, facey-5, facew+4, faceh);
 
 }
