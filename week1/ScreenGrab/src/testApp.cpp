@@ -15,9 +15,9 @@ void testApp::setup(){
 	//pixels.allocate(300, 300, OF_IMAGE_COLOR);
 	
     //load all images
-    glasses.loadImage("sunGl.png");
+    glasses.loadImage("images/sunGl.png");
     
-    
+    ofEnableAlphaBlending();
     
     
 	ofSetFrameRate(30);
@@ -69,8 +69,10 @@ void testApp::draw(){
 	//for each face "blob" we found, draw a rectangle around the face
     //#2
 	for(int i = 0; i < finder.blobs.size(); i++) {
-		ofRect(finder.blobs[i].boundingRect);
-      //  glasses.draw(x+boundingRect.x, y+boundingRect.y, 100,50);
+        ofRectangle cur = finder.blobs[i].boundingRect;
+		ofRect(cur);
+        //bounding rect is of object ofRect
+     glasses.draw( cur.x, cur.y, 100,50);
         
 	}
 	
