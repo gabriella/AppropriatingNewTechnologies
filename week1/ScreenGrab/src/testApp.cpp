@@ -72,7 +72,7 @@ void testApp::draw(){
         ofRectangle cur = finder.blobs[i].boundingRect;
 		ofRect(cur);
         //bounding rect is of object ofRect
-     glasses.draw( cur.x, cur.y, 100,50);
+     glasses.draw( cur.x-2, cur.y-5, cur.width+4, cur.height);
         
 	}
 	
