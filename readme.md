@@ -1,3 +1,5 @@
+This is my version
+
 # Appropriating New Technologies
 **Friday 9:30 am to 12:00 pm, Spring 2012**
 
