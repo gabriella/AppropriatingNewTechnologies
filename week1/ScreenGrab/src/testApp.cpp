@@ -70,7 +70,6 @@ void testApp::draw(){
     //#2
 	for(int i = 0; i < finder.blobs.size(); i++) {
 		ofRect(finder.blobs[i].boundingRect);
-        glasses.draw(x+boundingRect.x, y+boundingRect.y, 100,50);
         
 	}
 	
