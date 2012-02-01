@@ -14,6 +14,12 @@ void testApp::setup(){
 	image.allocate(300, 300, OF_IMAGE_COLOR);
 	//pixels.allocate(300, 300, OF_IMAGE_COLOR);
 	
+    //load all images
+    glasses.loadImage("sunGl.png");
+    
+    
+    
+    
 	ofSetFrameRate(30);
 
 }
@@ -64,6 +70,8 @@ void testApp::draw(){
     //#2
 	for(int i = 0; i < finder.blobs.size(); i++) {
 		ofRect(finder.blobs[i].boundingRect);
+        glasses.draw(x+boundingRect.x, y+boundingRect.y, 100,50);
+        
 	}
 	
 }

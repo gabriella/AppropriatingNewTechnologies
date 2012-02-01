@@ -24,5 +24,5 @@ class testApp : public ofBaseApp{
 		//ofPixels	pixels;
 		ofImage		image;
 		ofxCvHaarFinder finder;	 // object used to detect haar features
-
+    ofImage glasses;
 };
