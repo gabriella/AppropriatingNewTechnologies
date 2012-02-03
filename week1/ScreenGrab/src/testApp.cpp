@@ -16,6 +16,8 @@ void testApp::setup(){
 	
     //load all images
     glasses.loadImage("images/sunGl.png");
+    bolt.loadImage("images/bolt.png");
+    blueStar.loadImage("images/blueStar.png");
     
     ofEnableAlphaBlending();
     
@@ -29,8 +31,9 @@ void testApp::update(){
 	
 	int w = 300;
 	int h = 300;
+    
 	
-	unsigned char * data = pixelsBelowWindow(ofGetWindowPositionX(),ofGetWindowPositionY(),w,h);
+	unsigned char* data = pixelsBelowWindow(ofGetWindowPositionX(),ofGetWindowPositionY(),w,h);
 	
 	// now, let's get the R and B data swapped, so that it's all OK:
 	for (int i = 0; i < w*h; i++){
@@ -56,12 +59,14 @@ void testApp::update(){
 	}
 	//cout << imageBelowWindow()[0] << endl;
 	
-	
+	starx++;
 
 }
 
 //--------------------------------------------------------------
 void testApp::draw(){
+    ofSetColor(255,255,255,255);
+
 	image.draw(0,0, ofGetWidth(), ofGetHeight());
 	
 	ofNoFill();
@@ -69,12 +74,22 @@ void testApp::draw(){
 	//for each face "blob" we found, draw a rectangle around the face
     //#2
 	for(int i = 0; i < finder.blobs.size(); i++) {
-        ofRectangle cur = finder.blobs[i].boundingRect;
-		ofRect(cur);
+               ofRectangle cur = finder.blobs[i].boundingRect;
+    //ofRect(cur);
         //bounding rect is of object ofRect
-        
+       
         drawGlasses(cur.x, cur.y, cur.width, cur.height);
-        
+        //image.setFromPixels(data, 300, 300, OF_IMAGE_COLOR_ALPHA, true);
+        ofPushMatrix();
+        ofPushStyle();
+        ofTranslate(cur.x + cur.width/2 + sin(ofGetFrameNum()) * 100, cur.y + cur.height/2);
+        ofRotateZ(ofGetFrameNum() * 12);
+        ofSetRectMode(OF_RECTMODE_CENTER);
+        ofScale(sin(ofGetFrameNum()/2)+1.2, sin(ofGetFrameNum()/2)+1.2, 0);
+        drawStar(0, 0, cur.width, cur.height);
+        ofPopStyle();
+        ofPopMatrix();
+
 	}
 	
 }
@@ -125,6 +140,25 @@ void testApp::dragEvent(ofDragInfo dragInfo){
 }
 
 void testApp::drawGlasses(float facex, float  facey, float facew, float faceh){
+    ofSetColor(255,255,255,255);
       glasses.draw( facex-2, facey-5, facew+4, faceh);
+    
+    //how do enable alpha blending
+   // ofTin
+    
+    ofSetColor(0,255,255,127); // red, 50% transparent
 
+    image.draw(facex+facew/7, facey+faceh/2.6, facew/3.3, faceh/4.8);
+    image.draw(facex+facew/1.9, facey+faceh/2.6, facew/3.3, faceh/4.8);
+    
+    //draw lightning bolts
+    ofSetColor(255,255,255,255);
+    bolt.draw(facex-4, facey, facew/3, faceh/3);
+    bolt.draw(facex-6, facey-2, facew/2, faceh/2);
+}
+void testApp::drawStar(float starx, float  stary, float starw, float starh){
+    ofSetColor(255, 255, 255 , 255); 
+//draw blueStar
+blueStar.draw(starx, stary, starw, starh);
+    
 }

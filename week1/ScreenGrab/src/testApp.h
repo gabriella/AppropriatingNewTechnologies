@@ -20,11 +20,15 @@ class testApp : public ofBaseApp{
 		void dragEvent(ofDragInfo dragInfo);
 		void gotMessage(ofMessage msg);
     void drawGlasses(float facex, float facey, float facew, float faceh);
-    
+    void drawStar(float starx, float  stary, float starw, float starh);
 		
+    float starx;
+    
 		//ofTexture	tex;
 		//ofPixels	pixels;
 		ofImage		image;
 		ofxCvHaarFinder finder;	 // object used to detect haar features
     ofImage glasses;
+    ofImage bolt;
+    ofImage blueStar;
 };
