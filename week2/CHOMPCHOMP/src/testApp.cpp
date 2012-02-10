@@ -32,9 +32,9 @@ void testApp::draw() {
 		//GET IMAGE MESH
         ofMesh meanMesh = tracker.getMeanObjectMesh();
         ofMesh imageMesh = tracker.getImageMesh();
-        mouth = tracker.getObjectFeature(ofxFaceTracker::INNER_MOUTH);
+        mouth = tracker.getImageFeature(ofxFaceTracker::INNER_MOUTH);
 
-        
+        //getImageFeatureobject
         int vertices[] = {54,57,58,55,56};
         int n = 5;
         for(int i = 0; i < n; i++) {
