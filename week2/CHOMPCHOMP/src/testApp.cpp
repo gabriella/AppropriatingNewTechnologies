@@ -3,7 +3,7 @@
 using namespace ofxCv;
 
 void testApp::setup() {
-	ofSetVerticalSync(true);
+	 ofSetVerticalSync(true);
 	cam.initGrabber(640, 480);
 	tracker.setup();
     //myImage.loadImage("Blue.png");
