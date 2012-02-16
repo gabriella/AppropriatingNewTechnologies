@@ -8,9 +8,11 @@ public:
 	void setup();
 	void update();
 	void draw();
+    void keyPressed(int key);
    
 	
 	ofEasyCam cam;
 	ofxMRI body, melon;
     //vector<ofImage> slices, melonslices;
+    int trans();
 };
