@@ -4,7 +4,7 @@
 
 //Coding advice: make fewer decisions so you can make fewer mistakes
 
-void ofxMRI::setup(string filename) {
+void ofxMRI::setup(string filename, int x, int y, int w, int h) {
 	ofVideoPlayer vid;
 	vid.loadMovie(filename);
 	int n = vid.getTotalNumFrames();  //check how many frames there are  
@@ -20,8 +20,8 @@ void ofxMRI::setup(string filename) {
             ofPixels& pix = slices.back().getPixelsRef(); //the & character creates a reference or "alias", kind of a soft link to a file. The official name is reference. Pix now referes to the pixils on the back of the slices vector. 
             
             //ofPixelsmel& pixmel = melons.back().getPixelsRef(); 
-            for(int y = 0; y < pix.getHeight(); y++) {
-                for(int x = 0; x < pix.getWidth(); x++) {
+            for( y = 0; y < pix.getHeight(); y++) {
+                for( x = 0; x < pix.getWidth(); x++) {
                     ofColor cur = pix.getColor(x, y);
                     cur.a = cur.getBrightness();
                     pix.setColor(x, y, cur);
@@ -40,9 +40,9 @@ void ofxMRI::setup(string filename) {
 void ofxMRI::update() {
 }
 
-void ofxMRI::draw() {
+void ofxMRI::draw(float s) {
     
-	float spacing = 8;
+	float spacing =s;//= 4;
     
     
 	ofTranslate(-slices[0].getWidth() / 2, -slices[0].getHeight() / 2, -spacing * slices.size() / 2); // center things

@@ -12,7 +12,7 @@ public:
    
 	
 	ofEasyCam cam;
-	ofxMRI body, melon;
+	ofxMRI body1, body2,  melon, body3, tumor;// head, body1;
     //vector<ofImage> slices, melonslices;
     int trans();
 };

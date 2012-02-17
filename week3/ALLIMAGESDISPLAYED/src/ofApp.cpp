@@ -6,12 +6,22 @@
 
 int i=50;
 int t=0;
+int j=50;
 int newTr=0;
 
 void ofApp::setup() {
 	ofSetVerticalSync(true);
-    body.setup("body.gif");
-    melon.setup("melon.gif");
+    //body.setup("body.gif",0,0,0,0);
+   // melon.setup("melon.gif",100,100,100,100);
+    tumor.setup("Wilms_Tumor_CTScan.gif", 0,0,0,0);
+
+    melon.setup("Wilms_Tumor_CTScan.gif", 0,0,0,0);
+//head.setup("982748.gif", 0,0,0,0);
+    body1.setup("gifye.gif", 0,0,0,0);
+    body2.setup("gifye.gif", 0,0,0,0);
+    body3.setup("gifye.gif",0,0,0,0);
+
+    
 	ofEnableAlphaBlending();
 }  
   
@@ -31,19 +41,34 @@ void ofApp::draw() {
             ofPushMatrix();
             
            ofTranslate(t,0,0);
-
-    body.draw();
+            ofRotateY(-j);
+    //body.draw(3);
+            //head.draw(3);
     ofPushMatrix();
 
-   ofTranslate(i,30,20);
+   ofTranslate(30,30,i);
     ofRotateZ(i);
-    melon.draw();
-    i++;
+            ofSetColor(255,255,0,50);
+   melon.draw(3);
+            ofSetColor(255, 64); // make everything more transparent
+           body2.draw(6);
+            ofSetColor(0,255,0, 29); // make everything more transparent
 
+            tumor.draw(10);
+            ofPopMatrix();
+            ofPushMatrix();
+            ofTranslate(25,j/5,-25);
+            ofRotateZ(j);
+            ofSetColor(255,100,0, 50); // make everything more transparent
+           // ofSetColor(0,0,255, 64); // make everything more transparent
+           // body3.draw(10);
+            body1.draw(8);
             ofPopMatrix();
             ofPopMatrix();
-
+            ofSetColor(255,255,255,255);
         }
+    i--;
+    j--;
 
     cam.end();
 
@@ -53,13 +78,13 @@ void ofApp::keyPressed(int key){
 
     if((key)=='a')
     {
-         newTr=trans();
+         trans();
         
                      t++;
     }
 }
 int ofApp::trans(){ 
     cout<<"i'm in trans";
-     int i=1;
-    return i;
+     int moving = 1;
+    return moving;
 }
