@@ -2,16 +2,38 @@
 
 //--------------------------------------------------------------
 void testApp::setup(){
+    bSendSerialMessage = false;
+	ofSetLogLevel(OF_LOG_NOTICE);
+
 	// listen on the given port
 	cout << "listening for osc messages on port " << PORT << "\n";
 	receiver.setup( PORT );
 
 	current_msg_string = 0;
-	mouseX = 0;
-	mouseY = 0;
-	mouseButtonState = "";
+
 
 	ofBackground( 30, 30, 130 );
+    
+    
+    
+    serial.listDevices();
+	vector <ofSerialDeviceInfo> deviceList = serial.getDeviceList();
+	
+	//----------------------------------- note:
+	// < this should be set
+	// to whatever com port
+	// your serial device is
+	// connected to.
+	// (ie, COM4 on a pc, /dev/tty.... on linux, /dev/tty... on a mac)
+	// arduino users check in arduino app....
+    
+	serial.setup(0, 9600); //open the first device
+    
+	//serial.setup("COM4");  						  // windows example
+	//serial.setup("/dev/tty.usbserial-A4001JEC",9600); // mac osx example
+	//serial.setup("/dev/ttyUSB0", 9600);			  //linux example
+    
+
 
 }
 
@@ -38,34 +60,32 @@ void testApp::update(){
             
             cout<< m.getArgAsInt32(0)<<endl;
             if(m.getArgAsInt32(0)==0){
-            screenColor = 255;
+            screenColor = 0;
+                message=0;
+                //serial.writeByte('1');
+
             }
             
 		
-        else{screenColor = 0;}
+        else{screenColor = 255;
+            message=1;
+            serial.writeByte('0');
         }
+            
+            serial.flush();  
+            //if (bSendSerialMessage){
+            //ofSerial.writeByte('0');
+
+        //}
 		}
+}
 }
 
 
 //--------------------------------------------------------------
 void testApp::draw(){
 
-	string buf;
-	buf = "listening for osc messages on port" + ofToString( PORT );
-	ofDrawBitmapString( buf, 10, 20 );
-
-	// draw mouse state
-	buf = "mouse: " + ofToString( mouseX, 4) +  " " + ofToString( mouseY, 4 );
-	ofDrawBitmapString( buf, 430, 20 );
-	ofDrawBitmapString( mouseButtonState, 580, 20 );
-
-	for ( int i=0; i<NUM_MSG_STRINGS; i++ )
-	{
-		ofDrawBitmapString( msg_strings[i], 10, 40+15*i );
-	}
-
-
+	
     ofSetColor(screenColor);
     ofRect(0,0,ofGetWindowWidth(), ofGetWindowHeight());
 }

@@ -30,9 +30,14 @@ class testApp : public ofBaseApp{
 		int				current_msg_string;
 		string		msg_strings[NUM_MSG_STRINGS];
 		float			timers[NUM_MSG_STRINGS];
+    
+    //setup serial
+    bool		bSendSerialMessage;			// a flag for sending serial
+    ofSerial	serial;
+    int message;
 
-		int				mouseX, mouseY;
-		string			mouseButtonState;
+
+		
     
     int screenColor;//to change color oc=f screen if you blink
 };
