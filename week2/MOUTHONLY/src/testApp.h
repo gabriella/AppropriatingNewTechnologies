@@ -20,6 +20,8 @@ public:
     ofImage myImage; 
     ofPolyline mouth;
     ofPolyline lefteye;
+    int changer;
+    float addit;
    // ofxFaceTracker destTracker;
 
 };

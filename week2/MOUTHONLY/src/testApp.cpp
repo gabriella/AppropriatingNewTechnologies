@@ -1,13 +1,17 @@
- #include "testApp.h"
+#include "testApp.h"
 
 using namespace ofxCv;
 
 void testApp::setup() {
-	 ofSetVerticalSync(true);
+    ofSetVerticalSync(true);
+    
+//    setDeviceID(11);
+    
 	cam.initGrabber(640, 480);
 	tracker.setup();
     //myImage.loadImage("Blue.png");
-    
+    changer = 0;
+    addit =     1;
 }
 
 void testApp::update() {
@@ -24,21 +28,21 @@ void testApp::draw() {
     //ofsetdrawbitmapstringmode...model 
     
 	ofDrawBitmapString(ofToString((int) ofGetFrameRate()), 10, 20);
-  cam.draw(0, 0);
-
+    cam.draw(0, 0);
+    
 	if(tracker.getFound()) {
-	//	tracker.draw();
+        //	tracker.draw();
 		ofMesh objectMesh = tracker.getObjectMesh();//3d mesh
 		//GET IMAGE MESH
         ofMesh meanMesh = tracker.getMeanObjectMesh();
         ofMesh imageMesh = tracker.getImageMesh();
         mouth = tracker.getImageFeature(ofxFaceTracker::OUTER_MOUTH);
-
-     lefteye = tracker.getImageFeature(ofxFaceTracker::LEFT_EYE);
-
+        
+        lefteye = tracker.getImageFeature(ofxFaceTracker::LEFT_EYE);
+        
         //getImageFeatureobject
         //for(int i=0;i<vertices.length;i++){
-            int vertices[]= {54,57,58,55,56};
+        int vertices[]= {54,57,58,55,56};
         //}
         int n = 5;
         for(int i = 0; i < n; i++) {
@@ -53,40 +57,44 @@ void testApp::draw() {
             cur.y+=sin(ofGetElapsedTimef())*10+cur.y*0.012;
             cur.x+=sin(ofGetElapsedTimef())*10;
             imageMesh.setVertex(j,cur);
-
-        
-        cam.getTextureReference().bind();
-       // ofTranslate(-1*ofGetWidth(),0);
-
-        mouth.draw();
+            
+            
+            cam.getTextureReference().bind();
+            // ofTranslate(-1*ofGetWidth(),0);
+            
+            mouth.draw();
             lefteye.draw();
-   // imageMesh.draw();
-            int x=100;
-            ofPushMatrix();
-            ofTranslate(x,0);
+            // imageMesh.draw();
+                      ofPushMatrix();
+            ofTranslate(changer/2*-.5,changer);
             imageMesh.draw();
             ofPopMatrix();
-        cam.getTextureReference().unbind();
-		//cam.getTextureReference().unbind();
-        
-        //fast image clone
-        //blending 
-        
-        //draw inside of mouth
-              
-        mouth.setClosed(true);
-        ofPushStyle();
-        ofFill();
-        ofSetColor(60,0,0);
-        ofBeginShape();
-        for(int i =0; i<mouth.size(); i++){
-            ofVertex(mouth[i]);
+            cam.getTextureReference().unbind();
+            //cam.getTextureReference().unbind();
+            
+            //fast image clone
+            //blending 
+            
+            //draw inside of mouth
+            
+            mouth.setClosed(true);
+            ofPushStyle();
+            ofFill();
+            ofSetColor(60,0,0);
+            ofBeginShape();
+            for(int i =0; i<mouth.size(); i++){
+                ofVertex(mouth[i]);
+            }
+            ofEndShape(true);
+            ofPopStyle();  
+            mouth.draw();
+            changer=changer+addit;;
         }
-        ofEndShape(true);
-        ofPopStyle();  
-               mouth.draw();
-           }
-        
+      if(changer>=50||changer<=-50)
+        {
+            addit;///*=-1;
+            addit=0;
+        }
         //texture a 3d surface with an image. the mesh is the shpae of the grommets, the pixesl stretched over are "bind"
         //unbind
         
@@ -98,5 +106,7 @@ void testApp::draw() {
 void testApp::keyPressed(int key) {
 	if(key == 'r') {
 		tracker.reset();
+        changer =0;
+        addit = 1;
 	}
 }
